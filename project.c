@@ -89,7 +89,8 @@ void afterLogin(void){
 /*创建一个新的节点进行数据的添加*/
 Account* addNode(char *id, char *password, char *name,double balance){
     Account *newNode = (Account*)malloc(sizeof(Account));
-
+    if (!newNode) return NULL;
+    
     strcpy(newNode->id, id);
     strcpy(newNode->password, password);
     strcpy(newNode->name, name);
