@@ -119,7 +119,7 @@ int passwordConfirm(char password[]){
     return 0; // 代表密码错误
 }
 
-void registerAccount(){ // 注册的函数实现
+void registerAccount(void){ // 注册的函数实现
     printf("Please enter the id you want to set: ");
     char id[CHAR_MAXSIZE], name[CHAR_MAXSIZE], password[CHAR_MAXSIZE]; scanf("%19s", id);
     if (accountExist(id) != NULL){
@@ -144,7 +144,7 @@ void registerAccount(){ // 注册的函数实现
 }
 
 //登录账号
-int loginAccount(){
+int loginAccount(void){
     char id[CHAR_MAXSIZE], password[CHAR_MAXSIZE];
     printf("Please enter your account: "); scanf("%19s", id);
     Account *targetAccount = accountExist(id);
@@ -167,7 +167,7 @@ int loginAccount(){
 }
 
 // 展示信息的函数
-void showInformation(){
+void showInformation(void){
     printf("----Self information----\n");
     printf("id: %s\n", curUser->id);
     printf("name: %s\n", curUser->name);
@@ -175,7 +175,7 @@ void showInformation(){
 }
 
 // 存钱函数
-void deposit(){
+void deposit(void){
     double moneyDeposit;
     printf("Please place the money you input: "); scanf("%lf", &moneyDeposit);
     if (moneyDeposit > 0){
@@ -186,7 +186,7 @@ void deposit(){
 }
 
 // 提取存款
-void withdraw(){
+void withdraw(void){
     double moneyWithdraw;
     printf("Please withdraw the money you want: "); scanf("%lf", &moneyWithdraw);
     if(moneyWithdraw <= 0){
@@ -203,7 +203,7 @@ void withdraw(){
     }
 }
 
-void transfer(){
+void transfer(void){
     char idTransfer[CHAR_MAXSIZE];
     double moneyTransfer;
     printf("Enter the id you want to transfer: "); scanf("%19s", idTransfer);
@@ -234,7 +234,7 @@ void transfer(){
 }
 
 // 修改密码
-void changePWD(){
+void changePWD(void){
     char oldPassword[CHAR_MAXSIZE], newPassword[CHAR_MAXSIZE];
     char confirmedPassword[CHAR_MAXSIZE];
     printf("Please enter your old password: ");
@@ -259,7 +259,7 @@ void changePWD(){
 }
 
 // 注销账号
-void deregister(){
+void deregister(void){
     char confirm;
     printf("Warning: The current action cannot be reversed.");
     printf("Are you sure want to delete your account? (y/n): ");
@@ -319,7 +319,7 @@ void mainLoop(void){
     }
 }
 
-void saveData(){
+void saveData(void){
     FILE *fp = fopen("ATM_data.txt", "w");
     if(fp == NULL){
         printf("ERROR: The data doesn't exist");
@@ -335,7 +335,7 @@ void saveData(){
     printf("Data have been saved successfully\n");
 }
 
-void loadData(){
+void loadData(void){
     FILE *fp = fopen("ATM_data.txt", "r");
     if(fp == NULL){
         return;
@@ -351,7 +351,7 @@ void loadData(){
     printf("Data have been load successfully\n");
 }
 
-void freeNode(){
+void freeNode(void){
     Account *p = head; // 状态节点
     if (p == NULL){
         return;
@@ -364,7 +364,7 @@ void freeNode(){
     head = NULL;
 }
 
-int main(){
+int main(void){
     // 加载数据
     loadData();
     // 加载菜单

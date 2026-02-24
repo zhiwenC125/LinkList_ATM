@@ -37,3 +37,6 @@ ATM_data.txt
 .DS_Store
 # Windows 缩略图缓存
 Thumbs.db
+# 忽略cmake文件
+build/build/
+.DS_Store
