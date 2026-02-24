@@ -166,6 +166,53 @@ gcc main.c -o atm_system[自定义] //本项目位project.c
     ```Bash
     ./atm_system
     ```
+
+## CMake编译运行的学习与实践笔记
+### 1. Question：为什么使用CMake
+    - **跨平台支持**：无论在什么电脑都可以同一套配置文件均可执行
+    - **一键编译**：通过简单的指令即可自动处理链表（LinkList）多个源文件之间的依赖关系
+    - **源外构建**：所有的编译中间文件都存放在 build/ 文件夹中，保持项目根目录整洁。
+### 2. 本项目 CMakeLists.txt 核心解析
+
+```CMake
+# 最低版本要求
+cmake_minimum_required(VERSION 3.10)
+
+# 项目名称
+project(ATM_linklist LANGUAGES C)
+
+# 指定C标准
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+
+# 自动搜索所有.c和.h的源文件和头文件
+file(GLOB SOURCES "*.c" "*.h")
+
+# 生成可执行文件
+add_executable(atm_app ${SOURCES})
+```
+
+### 3. 标准编译流程
+在终端执行以下指令即可完成编译与运行
+```Bash
+# 1. 创建并进入构建目录
+mkdir -p build && cd build
+
+# 2. 生成构建系统文件 (Makefile)
+cmake ..
+
+# 3. 执行编译
+cmake --build .
+
+# 4. 运行程序
+./atm_app
+```
+
+## 4. 个人避坑指南
+- .gitignore 的**重要性**：务必将 build/ 文件夹加入忽略名单，避免将数兆的中间编译产物上传到 GitHub
+- **增量编译**：修改代码后，只需再次执行 cmake --build .，CMake 会自动识别修改过的文件并进行最小化编译，极大提升了开发效率
+- **嵌入式衔接**：此套 CMake 逻辑未来可轻松迁移至 STM32 等嵌入式开发中，只需更换交叉编译器（Toolchain）即可
+
 ## ⚠️ 注意事项
 * 数据文件: 首次运行时如果没有 ATM_data.txt 属于正常现象，保存数据后会自动创建。
 
